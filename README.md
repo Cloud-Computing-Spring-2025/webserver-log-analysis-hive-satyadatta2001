@@ -160,3 +160,24 @@ git commit -m ""
 git push origin main
 ```
 
+### **Challenges Faced**
+1.Data Format Issues:
+Challenge: The initial CSV data format had inconsistencies, such as missing values or incorrect delimiters.
+Resolution: I cleaned the data using a script to ensure that all entries were properly formatted and followed the correct CSV standards before loading them into HDFS.
+
+2.Performance Issues with Large Datasets:
+Challenge: Queries took too long to execute on large log files.
+Resolution: Implemented partitioning on the web_logs_partitioned table by HTTP status codes, which improved query performance significantly.
+
+3.HDFS Permissions:
+Challenge: Encountered permission errors while trying to access HDFS directories.
+Resolution: Adjusted the permissions on the HDFS directories using hdfs dfs -chmod to allow the necessary access rights for the Hive user.
+
+4.Dynamic Partitioning Configuration:
+Challenge: Struggled to set up dynamic partitioning correctly, resulting in empty partitions.
+Resolution: Before inserting data into the partitioned table, set the Hive configuration to SET hive.exec.dynamic.partition.mode=nonstrict to ensure it accepts dynamic partitions.
+
+5.Docker Configuration:
+Challenge: Issues with Docker container not starting or running out of resources.
+Resolution: We increased the resource limits for the Docker container and ensured that all necessary services (such as Hive and HDFS) were properly configured and running.
+
